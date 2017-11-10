@@ -45,6 +45,10 @@ public class Record {
             time = new Date();
         }
     }
+    
+    public void setTimeDate(Date d){
+        time = d;
+    }
 
     public void setName(String n) {
         name = n;
@@ -54,7 +58,7 @@ public class Record {
         description = d;
     }
 
-    public void setContscts(String c) {
+    public void setContacts(String c) {
         contacts = c;
     }
     

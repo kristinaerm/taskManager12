@@ -5,6 +5,10 @@
  */
 package view;
 
+import model.Record;
+import model.TaskLog;
+import model.User;
+
 /**
  *
  * @author USER
@@ -17,6 +21,15 @@ public class SimpleTaskManager extends javax.swing.JFrame{
     public SimpleTaskManager() {
         initComponents();
     }
+    
+    public SimpleTaskManager(User user) {
+        initComponents();
+        currentUser = user;
+        currentTaskLog = user.getTaskLog();
+        //отрисовка списка задач
+        //вызов таймера и треда с оповещением
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,12 +95,22 @@ public class SimpleTaskManager extends javax.swing.JFrame{
         jTextField4.setText("jTextField4");
 
         jButton1.setText("Добавить");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Удалить задачу №");
 
         jTextField5.setText("jTextField5");
 
         jButton2.setText("Удалить");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Название");
 
@@ -102,6 +125,11 @@ public class SimpleTaskManager extends javax.swing.JFrame{
         jTextField6.setText("jTextField6");
 
         jButton3.setText("Изменить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,6 +244,48 @@ public class SimpleTaskManager extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Record rec = null;
+        if ((jTextField1.getText()!="")&&(jTextField2.getText()!="")&&(jTextField3.getText()!="")&&(jTextField4.getText()!="")){
+            rec = new Record(jTextField1.getText(),jTextField3.getText(),jTextField2.getText(),jTextField4.getText());
+            currentTaskLog.addRecord(rec);
+            //repaint
+            //обновление таймера и треда с оповещением
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Record rec = null;
+        if (jTextField6.getText()!=""){
+            rec = currentTaskLog.getRecord(Integer.parseInt(jTextField6.getText()));
+            if ((jTextField1.getText()!="")) {
+                rec.setName(jTextField1.getText());
+            }
+            if ((jTextField2.getText()!="")) {
+                rec.setTime(jTextField2.getText());
+            }
+            if ((jTextField3.getText()!="")) {
+                rec.setDescription(jTextField3.getText());
+            }
+            if ((jTextField4.getText()!="")) {
+                rec.setContacts(jTextField4.getText());
+            }
+        }
+        //repaint
+        //обновление таймера и треда с оповещением
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if ((jTextField5.getText()!="")) {
+                currentTaskLog.deleteRecord(Integer.parseInt(jTextField5.getText()));
+            }
+        //repaint
+        //обновление таймера и треда с оповещением
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,7 +321,8 @@ public class SimpleTaskManager extends javax.swing.JFrame{
             }
         });
     }
-
+    private User currentUser;
+    private TaskLog currentTaskLog;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

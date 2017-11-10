@@ -5,6 +5,10 @@
  */
 package view;
 
+import java.util.Calendar;
+import model.Record;
+import model.TaskLog;
+
 /**
  *
  * @author USER
@@ -16,6 +20,16 @@ public class SimpleNotification extends javax.swing.JFrame{
      */
     public SimpleNotification() {
         initComponents();
+    }
+    
+    public SimpleNotification(TaskLog tl) {
+        initComponents();
+        currentTaskLog = tl;
+        currentRec = tl.getRecord(0);
+        jTextField1.setText(currentRec.getTimeString());
+        jTextField2.setText(currentRec.getName());
+        jTextField3.setText(currentRec.getDescription());
+        jTextField4.setText(currentRec.getContacts());
     }
 
     /**
@@ -63,8 +77,18 @@ public class SimpleNotification extends javax.swing.JFrame{
         jButton1.setText("Выполнить");
         jButton1.setToolTipText("");
         jButton1.setActionCommand("");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Отложить на 10 минут");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,6 +142,21 @@ public class SimpleNotification extends javax.swing.JFrame{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        currentTaskLog.deleteRecord(0);
+        //закрыть, оповестить, перерисовать
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(currentRec.getTime()); 
+        instance.add(Calendar.MINUTE,10);
+        currentRec.setTimeDate(instance.getTime());
+        //закрыть, оповестить, перерисовать
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -153,7 +192,8 @@ public class SimpleNotification extends javax.swing.JFrame{
             }
         });
     }
-
+    private Record currentRec;
+    private TaskLog currentTaskLog;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

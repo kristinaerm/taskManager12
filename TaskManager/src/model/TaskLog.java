@@ -16,9 +16,10 @@ import org.w3c.dom.Document;
 public class TaskLog {
     
     private LinkedList<Record> records;
-    
+    private String id;
     
     public TaskLog (LinkedList<Record> rec){
+        //сформировать айдишник
         records = rec;
     }
     
@@ -37,4 +38,8 @@ public class TaskLog {
     public void deleteRecord (int n){
         
     }  
+    
+    public void sort (){
+        
+    }
 }
