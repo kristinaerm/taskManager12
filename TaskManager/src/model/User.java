@@ -11,6 +11,7 @@ import java.util.LinkedList;
  *
  * @author USER
  */
+//  проверочка
 public class User {
     private final String id;
     private final String login;
