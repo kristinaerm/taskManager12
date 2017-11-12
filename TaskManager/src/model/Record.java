@@ -13,7 +13,7 @@ import java.util.Date;
  *
  * @author USER
  */
-public class Record {
+public class Record implements Comparable{
     private String name;
     private String description;
     private Date time;
@@ -80,6 +80,12 @@ public class Record {
     
     public String getTimeString(){
         return dateTimeFormatter.format(time);
+    }
+
+    @Override
+    public int compareTo(Object t) {
+        Record r = (Record)t;
+        return time.compareTo(r.getTime());
     }
     
 }

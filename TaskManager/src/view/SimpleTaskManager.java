@@ -5,9 +5,7 @@
  */
 package view;
 
-import model.Record;
-import model.TaskLog;
-import model.User;
+import model.*;
 
 /**
  *
@@ -27,7 +25,9 @@ public class SimpleTaskManager extends javax.swing.JFrame{
         currentUser = user;
         currentTaskLog = user.getTaskLog();
         //отрисовка списка задач
-        //вызов таймера и треда с оповещением
+        updateTable();
+        //вызов таймера и треда с оповещением должен быть в мэйне?
+        updateNotification();
     }
 
 
@@ -200,9 +200,9 @@ public class SimpleTaskManager extends javax.swing.JFrame{
                 .addComponent(jLabel1)
                 .addGap(9, 9, 9)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -230,9 +230,7 @@ public class SimpleTaskManager extends javax.swing.JFrame{
                             .addComponent(jLabel13)
                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jSeparator1)))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
 
@@ -246,30 +244,21 @@ public class SimpleTaskManager extends javax.swing.JFrame{
             rec = new Record(jTextField1.getText(),jTextField3.getText(),jTextField2.getText(),jTextField4.getText());
             currentTaskLog.addRecord(rec);
             //repaint
+            updateTable();
             //обновление таймера и треда с оповещением
+            updateNotification();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        Record rec = null;
+        // TODO add your handling code here:        
         if (jTextField6.getText()!=""){
-            rec = currentTaskLog.getRecord(Integer.parseInt(jTextField6.getText()));
-            if ((jTextField1.getText()!="")) {
-                rec.setName(jTextField1.getText());
-            }
-            if ((jTextField2.getText()!="")) {
-                rec.setTime(jTextField2.getText());
-            }
-            if ((jTextField3.getText()!="")) {
-                rec.setDescription(jTextField3.getText());
-            }
-            if ((jTextField4.getText()!="")) {
-                rec.setContacts(jTextField4.getText());
-            }
+            currentTaskLog.changeRecord(Integer.parseInt(jTextField6.getText()),jTextField1.getText(),jTextField2.getText(), jTextField3.getText(), jTextField4.getText());            
         }
         //repaint
+        updateTable();
         //обновление таймера и треда с оповещением
+        updateNotification();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -278,9 +267,18 @@ public class SimpleTaskManager extends javax.swing.JFrame{
                 currentTaskLog.deleteRecord(Integer.parseInt(jTextField5.getText()));
             }
         //repaint
+        updateTable();
         //обновление таймера и треда с оповещением
+        updateNotification();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void updateTable(){
+        
+    }
+    
+    public void updateNotification(){
+        
+    }
     /**
      * @param args the command line arguments
      */
